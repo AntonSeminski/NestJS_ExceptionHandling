@@ -1,6 +1,6 @@
 {
   "name": "@asemin/nestjs-exception-handling",
-  "version": "0.0.4",
+  "version": "0.0.8",
   "description": "",
   "author": "Anton Semin <anton.siaminski@gmail.com>",
   "private": false,
@@ -9,7 +9,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build"
-    },
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -19,6 +19,8 @@
   },
   "bugs": "https://github.com/AntonSeminski/NestJS_ExceptionHandling",
   "dependencies": {
+    "@nestjs/platform-fastify": "^8.2.6",
+    "fastify": "^3.27.0"
   },
   "peerDependencies": {
     "@nestjs/common": "^8.0.0"
@@ -35,5 +37,5 @@
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
   },
-    "rootDir": "src"
+  "rootDir": "src"
 }

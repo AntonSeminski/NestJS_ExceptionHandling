@@ -1,6 +1,9 @@
 import {ExceptionHandler} from "./handlers/abstract/exception.handler";
 
 const createExceptionHandlersChain = (handlers:  ExceptionHandler[]) => {
+    if (!handlers)
+        return [];
+
     for (let i = 0; i < handlers.length; i++) {
         const current = handlers[i];
         const next = handlers[i + 1];

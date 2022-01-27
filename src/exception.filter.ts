@@ -2,9 +2,10 @@ import {ArgumentsHost, Catch, HttpStatus} from '@nestjs/common';
 import {HandledExceptionDto} from './handled-exception.dto';
 import {HttpConstants} from './constants'
 import {ExceptionHandler} from "./handlers/abstract/exception.handler";
+import { FastifyReply } from 'fastify'
 
 @Catch()
-export class ExceptionFilter implements ExceptionFilter {
+export class ExceptionFilter{
     handler: ExceptionHandler;
 
     constructor(handler: ExceptionHandler) {
@@ -13,8 +14,8 @@ export class ExceptionFilter implements ExceptionFilter {
 
     catch(exception: any, host: ArgumentsHost): any {
         const context = host.switchToHttp();
-        const response = context.getResponse();
-
+        const response = context.getResponse<FastifyReply>();
+        
         const handledException: HandledExceptionDto = this.handler?.handle(exception);
         const internalErrorException: HandledExceptionDto = {
             status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -28,7 +29,7 @@ export class ExceptionFilter implements ExceptionFilter {
         const responseException = handledException ? handledException : internalErrorException;
 
         response
-            .status(responseException.status)
-            .json(responseException)
+            .code(responseException.status)
+            .send(responseException)
     }
 }
