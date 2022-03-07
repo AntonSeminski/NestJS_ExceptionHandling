@@ -12,16 +12,20 @@ export class ValidationException extends CustomException {
 
     getErrorMessages(validationErrors: ValidationError[]) {
         if (!validationErrors)
-            return [];
+            return []
 
-        let errorMessages: string[] = [];
+        let errorMessages = []
 
         validationErrors.forEach(error => {
             if (error.constraints)
-                Object.entries(error.constraints).forEach(([key, value]) => {
-                    errorMessages.push(value)
-                });
-            });
+                Object.entries(error.constraints).forEach( ([key, value]) => errorMessages.push(value))
+
+            if (error.children && error.property){
+                const errors = [...this.getErrorMessages(error.children)]
+
+                if (errors.length > 0) errorMessages.push({prop: error.property, errors: errors})
+            }
+        })
 
         return errorMessages;
     }
