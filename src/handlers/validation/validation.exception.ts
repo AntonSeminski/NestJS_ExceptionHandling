@@ -23,7 +23,7 @@ export class ValidationException extends CustomException {
             if (error.children && error.property){
                 const errors = [...this.getErrorMessages(error.children)]
 
-                if (errors.length > 0) errorMessages.push({prop: error.property, errors: errors})
+                if (errors.length > 0) errorMessages.push({property: error.property, errors: errors})
             }
         })
 

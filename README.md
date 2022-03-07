@@ -24,12 +24,35 @@
 
 ## Description
 
+Nestjs Exception handling implementation.
+Includes: 
+    * Handler's chain mechanism
+    * Custom exception to inherit from
+    * Implemented Nest JS Validation Exception handler
+
+Exception structure: 
+    {
+        status: 500,
+        message: 'This was screwed',
+        body: { any info you like }
+    }
+
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## Use
+#handlers chain creation
 
+
+#main.ts
 ```bash
-$ npm install
+    const exceptionFilter = new ExceptionFilter(
+        <ExceptionHandler>createExceptionHandlersChain(handlersChain)
+    );
+
+    app.useGlobalFilters(exceptionFilter);
+```
+```bash
+$ npm install @asemin/nestjs-exception-handling
 ```
 
 ## Running the app
@@ -58,15 +81,6 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 

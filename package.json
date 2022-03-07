@@ -1,14 +1,14 @@
 {
   "name": "@asemin/nestjs-exception-handling",
-  "version": "0.0.13",
+  "version": "0.0.16",
   "description": "",
   "author": "Anton Semin <anton.siaminski@gmail.com>",
   "private": false,
   "license": "UNLICENSED",
   "main": "dist/main.js",
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "nest build"
+    "prepare": "npm run build",
+    "build": "tsc"
   },
   "publishConfig": {
     "access": "public"
