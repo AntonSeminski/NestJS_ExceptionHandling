@@ -17,11 +17,11 @@ export class ValidationException extends CustomException {
         let errorMessages: string[] = [];
 
         validationErrors.forEach(error => {
-            for (const [key, value] of Object.entries(error.constraints))
-            {
-                errorMessages.push(value)
-            }
-        });
+            if (error.constraints)
+                Object.entries(error.constraints).forEach(([key, value]) => {
+                    errorMessages.push(value)
+                });
+            });
 
         return errorMessages;
     }
