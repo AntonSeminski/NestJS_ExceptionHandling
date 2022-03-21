@@ -1,4 +1,4 @@
-import {HandledExceptionDto} from "../../handled-exception.dto";
+import {HandledExceptionDto} from "../../dto/handled-exception.dto";
 
 export abstract class ExceptionHandler {
     next: ExceptionHandler;

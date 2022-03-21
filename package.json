@@ -2,7 +2,7 @@
   "name": "@asemin/nestjs-exception-handling",
   "version": "0.0.16",
   "description": "",
-  "author": "Anton Semin <anton.siaminski@gmail.com>",
+  "author": "Anton Semin <anton.siaminski@gmail.com>, Vladzimir Karpov",
   "private": false,
   "license": "UNLICENSED",
   "main": "dist/main.js",

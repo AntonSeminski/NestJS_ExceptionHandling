@@ -1,4 +1,4 @@
-import {ExceptionHandler} from "./handlers/abstract/exception.handler";
+import {ExceptionHandler} from "../handlers/abstract/exception.handler";
 
 const createExceptionHandlersChain = (handlers:  ExceptionHandler[]): ExceptionHandler => {
     if (!handlers)

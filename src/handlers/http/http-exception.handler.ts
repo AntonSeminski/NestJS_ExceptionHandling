@@ -1,16 +1,19 @@
-import {HandledExceptionDto} from "../../handled-exception.dto";
-import {HttpException, HttpStatus} from "@nestjs/common";
+import {HandledExceptionDto} from "../../dto/handled-exception.dto";
+import {HttpException} from "@nestjs/common";
 import {ExceptionHandler} from "../abstract/exception.handler";
-import {HttpConstants} from "../../constants";
+import {getException} from "../../services/exception.service";
+import {CODES} from "../../constants/codes.constants";
 
-export class HttpExceptionHandler extends ExceptionHandler{
+export class HttpExceptionHandler extends ExceptionHandler {
     handle(exception: any): HandledExceptionDto {
-        if ( !(exception instanceof HttpException) )
+        if (!(exception instanceof HttpException))
             return this.next?.handle(exception);
 
-        const status = exception.getStatus() ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
-        const message= exception.message ? exception.message : HttpConstants.errorMessages.UNKNOWN;
+        const {code, message: codeMessage, status: codeStatus} = getException(CODES.COMMON.HTTP);
 
-        return new HandledExceptionDto(status, message);
+        const status = exception.getStatus() ? exception.getStatus() : codeStatus;
+        const message = exception.message ? exception.message : codeMessage;
+
+        return new HandledExceptionDto({code, status, message});
     }
 }

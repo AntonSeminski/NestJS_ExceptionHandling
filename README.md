@@ -85,3 +85,6 @@ $ npm run test:cov
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Deploy
+npm publish

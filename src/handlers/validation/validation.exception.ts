@@ -1,9 +1,10 @@
-import {HttpStatus, ValidationError} from "@nestjs/common";
-import {CustomException} from "../../custom.exception";
+import {ValidationError} from "@nestjs/common";
+import {CustomException} from "../../exceptions/custom.exception";
+import {CODES} from "../../constants/codes.constants";
 
 export class ValidationException extends CustomException {
     constructor(validationErrors: ValidationError[]) {
-        super({}, HttpStatus.BAD_REQUEST, {});
+        super(CODES.VALIDATION)
 
         this.body = {
             errors: this.getErrorMessages(validationErrors)
