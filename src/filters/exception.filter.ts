@@ -22,9 +22,7 @@ export class ExceptionFilter {
 
         const responseException = handledException ? handledException : internalErrorException;
 
-        console.log(`Exception : Reason : ${responseException.message}`)
-        console.log(`Exception : Body : ${responseException.body}`)
-        console.log(`Exception : ALL : ${JSON.stringify(responseException)}`)
+        console.log(`Exception : ${JSON.stringify(responseException)}`)
 
         response
             .code(responseException.status)
