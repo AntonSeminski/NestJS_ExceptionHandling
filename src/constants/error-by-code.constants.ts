@@ -34,6 +34,23 @@ export const ERROR_BY_CODE = new Map([
         }],
 
 
+        [CODES.SESSION.EMPTY, {
+            code: CODES.SESSION.EMPTY,
+            status: HttpStatus.UNAUTHORIZED,
+            message: 'No session found!'
+        }],
+        [CODES.SESSION.EXPIRED, {
+            code: CODES.SESSION.EXPIRED,
+            status: HttpStatus.UNAUTHORIZED,
+            message: 'Session has expired!'
+        }],
+        [CODES.SESSION.WRONG_DEVICE, {
+            code: CODES.SESSION.EMPTY,
+            status: HttpStatus.UNAUTHORIZED,
+            message: 'False dragon!'
+        }],
+
+
         [CODES.COMMON.UNKNOWN, {
             code: CODES.COMMON.UNKNOWN,
             status: HttpStatus.BAD_REQUEST,
@@ -56,23 +73,30 @@ export const ERROR_BY_CODE = new Map([
 
         [CODES.CODE.INVALID, {
             code: CODES.CODE.INVALID,
-            status: HttpStatus.BAD_REQUEST,
+            status: HttpStatus.UNAUTHORIZED,
             message: `Grogu knows this cookie, but it is bad cookie! Grogu don't eat it!`
         }],
         [CODES.CODE.UNKNOWN, {
             code: CODES.CODE.UNKNOWN,
-            status: HttpStatus.BAD_REQUEST,
+            status: HttpStatus.UNAUTHORIZED,
             message: `Grogu doesn't know this cookie! Grogu won't eat it!`
         }],
         [CODES.CODE.EXPIRED, {
             code: CODES.CODE.EXPIRED,
-            status: HttpStatus.BAD_REQUEST,
+            status: HttpStatus.UNAUTHORIZED,
             message: `Grogu knows this cookie is stale! Grogu won't eat it!`
         }],
         [CODES.CODE.WRONG_RELATED_TO, {
             code: CODES.CODE.WRONG_RELATED_TO,
-            status: HttpStatus.BAD_REQUEST,
+            status: HttpStatus.UNAUTHORIZED,
             message: `Grogu won't eat stolen cookie!`
+        }],
+
+
+        [CODES.DATABASE.DUPLICATE, {
+            code: CODES.DATABASE.DUPLICATE,
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            message: `Duplicate record!`
         }],
 
 
@@ -80,6 +104,25 @@ export const ERROR_BY_CODE = new Map([
             code: CODES.VALIDATION,
             status: HttpStatus.BAD_REQUEST,
             message: `Validation error! Please refer body for details!`
+        }],
+
+
+        [CODES.LICENSE.NOT_FOUND, {
+            code: CODES.LICENSE.NOT_FOUND,
+            status: HttpStatus.BAD_REQUEST,
+            message: `No such license found!`
+        }],
+
+
+        [CODES.WORKSPACE.NO_ACCESS, {
+            code: CODES.WORKSPACE.NO_ACCESS,
+            status: HttpStatus.UNAUTHORIZED,
+            message: `User does not have access to this workspace!`
+        }],
+        [CODES.WORKSPACE.NOT_FOUND, {
+            code: CODES.WORKSPACE.NOT_FOUND,
+            status: HttpStatus.BAD_REQUEST,
+            message: `No such Workspace found!`
         }],
     ]
 )
