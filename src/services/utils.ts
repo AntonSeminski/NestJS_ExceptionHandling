@@ -37,14 +37,14 @@ const getArguments = (func) => {
 
 const zip = (keys, values) => keys.map((x, i) => [x, values[i]]);
 
-const isArrayHasEmpty = (...values) => values.some(value => !value);
+const isHasEmpty = (...values) => values.some(value => !value);
 
-const isHasEmptyParams = (f) => isArrayHasEmpty(f.arguments);
+const isHasEmptyParams = (f) => isHasEmpty(f.arguments);
 
 export {
     createExceptionHandlersChain,
     getArguments,
     zip,
-    isArrayHasEmpty,
+    isHasEmpty,
     isHasEmptyParams
 }

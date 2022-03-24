@@ -107,7 +107,29 @@ export const ERROR_BY_CODE = new Map([
         }],
 
 
-        [CODES.LICENSE.NOT_FOUND, {
+        [CODES.HTTP["400"], {
+            code: CODES.HTTP["400"],
+            status: HttpStatus.BAD_REQUEST,
+            message: 'Bad Request!'
+        }],
+        [CODES.HTTP["401"], {
+            code: CODES.HTTP["401"],
+            status: HttpStatus.UNAUTHORIZED,
+            message: 'Unauthorized!'
+        }],
+        [CODES.HTTP["403"], {
+            code: CODES.HTTP["403"],
+            status: HttpStatus.FORBIDDEN,
+            message: 'Forbidden Resource!'
+        }],
+        [CODES.HTTP["404"], {
+            code: CODES.HTTP["404"],
+            status: HttpStatus.NOT_FOUND,
+            message: 'Not found!'
+        }],
+
+
+            [CODES.LICENSE.NOT_FOUND, {
             code: CODES.LICENSE.NOT_FOUND,
             status: HttpStatus.BAD_REQUEST,
             message: `No such license found!`

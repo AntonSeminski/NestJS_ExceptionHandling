@@ -9,9 +9,10 @@ export class HttpExceptionHandler extends ExceptionHandler {
         if (!(exception instanceof HttpException))
             return this.next?.handle(exception);
 
-        const {code, message: codeMessage, status: codeStatus} = getException(CODES.COMMON.HTTP);
+        const status = exception.getStatus();
 
-        const status = exception.getStatus() ? exception.getStatus() : codeStatus;
+        const {code, message: codeMessage} = getException(CODES.HTTP[status]);
+
         const message = exception.message ? exception.message : codeMessage;
 
         return new HandledExceptionDto({code, status, message});

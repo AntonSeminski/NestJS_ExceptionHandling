@@ -29,10 +29,10 @@ export const CODES = {
     },
     VALIDATION: 'ERROR:VALIDATION',
     HTTP: {
-        '400': 'Bad request!',
-        '401': 'Unauthorized!',
-        '403': 'Forbidden resource!',
-        '404': 'Not found!',
+        '400': 'ERROR:HTTP-BAD_REQUEST',
+        '401': 'ERROR:HTTP-UNAUTHORIZED',
+        '403': 'ERROR:HTTP-FORBIDDEN_RESOURCE',
+        '404': 'ERROR:HTTP-NOT_FOUND',
     },
     LICENSE: {
         NOT_FOUND: 'ERROR:LICENSE-NOT_FOUND'

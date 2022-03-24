@@ -12,16 +12,16 @@ const getException = (code: string): ErrorDto =>
 const throwException = (code: string, body: any = {}) => {
     if (!code) throwException(CODES.COMMON.EMPTY_PARAM)
 
-    throw new CustomException(code, body)
+    throw new CustomException(code, body);
 }
 
-const throwEmptyParam = (func) => {
+const throwEmptyParam = (func: Function) => {
     const argumentNames = getArguments(func);
     const argumentValues = func.arguments;
 
     const valueByName = zip(argumentNames, argumentValues);
 
-    throwException(CODES.COMMON.EMPTY_PARAM, valueByName)
+    throwException(CODES.COMMON.EMPTY_PARAM, valueByName);
 }
 
-export {getException, throwException}
+export {getException, throwException, throwEmptyParam}
