@@ -146,5 +146,12 @@ export const ERROR_BY_CODE = new Map([
             status: HttpStatus.BAD_REQUEST,
             message: `No such Workspace found!`
         }],
+
+
+        [CODES.FEATURE.NOT_AVAILABLE, {
+            code: CODES.FEATURE.NOT_AVAILABLE,
+            status: HttpStatus.FORBIDDEN,
+            message: `This Feature is not available for you license!`
+        }],
     ]
 )
