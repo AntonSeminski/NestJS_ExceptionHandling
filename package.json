@@ -1,6 +1,6 @@
 {
   "name": "@asemin/nestjs-exception-handling",
-  "version": "0.0.24",
+  "version": "0.0.26",
   "description": "",
   "author": "Anton Semin <anton.siaminski@gmail.com>, Vladzimir Karpov",
   "private": false,

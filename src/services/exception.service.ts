@@ -19,9 +19,10 @@ const throwEmptyParam = (func: Function) => {
     const argumentNames = getArguments(func);
     const argumentValues = func.arguments;
 
-    const valueByName = zip(argumentNames, argumentValues);
+    const valueByField = zip(argumentNames, argumentValues);
+    const functionName = func.name;
 
-    throwException(CODES.COMMON.EMPTY_PARAM, valueByName);
+    throwException(CODES.COMMON.EMPTY_PARAM, {functionName, valueByField});
 }
 
 export {getException, throwException, throwEmptyParam}
