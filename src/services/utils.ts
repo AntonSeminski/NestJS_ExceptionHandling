@@ -16,6 +16,35 @@ const createExceptionHandlersChain = (handlers:  ExceptionHandler[]): ExceptionH
     return handlers[0];
 }
 
+const getArguments = (func) => {
+    const ARROW = true;
+    const FUNC_ARGS = ARROW ? /^(function)?\s*[^(]*\(\s*([^)]*)\)/m : /^(function)\s*[^(]*\(\s*([^)]*)\)/m;
+    const FUNC_ARG_SPLIT = /,/;
+    const FUNC_ARG = /^\s*(_?)(.+?)\1\s*$/;
+    const STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+
+    return ((func || '').toString()
+        .replace(STRIP_COMMENTS, '')
+        .match(FUNC_ARGS) || ['', '', ''])[2]
+        .split(FUNC_ARG_SPLIT)
+        .map(function (arg) {
+            return arg.replace(FUNC_ARG, function (all, underscore, name) {
+                return name.split('=')[0].trim();
+            });
+        })
+        .filter(String);
+}
+
+const zip = (keys, values) => keys.map((x, i) => [x, values[i]]);
+
+const isArrayHasEmpty = (...values) => values.some(value => !value);
+
+const isHasEmptyParams = (f) => isArrayHasEmpty(f.arguments);
+
 export {
-    createExceptionHandlersChain
+    createExceptionHandlersChain,
+    getArguments,
+    zip,
+    isArrayHasEmpty,
+    isHasEmptyParams
 }
