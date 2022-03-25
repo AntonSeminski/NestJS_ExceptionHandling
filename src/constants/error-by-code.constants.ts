@@ -34,6 +34,33 @@ export const ERROR_BY_CODE = new Map([
         }],
 
 
+        [CODES.AUTH.INVALID_SPECIAL_CODE, {
+            code: CODES.AUTH.INVALID_SPECIAL_CODE,
+            status: HttpStatus.UNAUTHORIZED,
+            message: 'No special code found!'
+        }],
+        [CODES.AUTH.NO_AUTH_HEADER, {
+            code: CODES.AUTH.NO_AUTH_HEADER,
+            status: HttpStatus.UNAUTHORIZED,
+            message: 'No Authorization Data (Header)!!'
+        }],
+        [CODES.AUTH.WRONG_AUTH_TYPE, {
+            code: CODES.AUTH.WRONG_AUTH_TYPE,
+            status: HttpStatus.UNAUTHORIZED,
+            message: 'Wrong Auth Type!'
+        }],
+        [CODES.AUTH.NO_TOKEN, {
+            code: CODES.AUTH.NO_TOKEN,
+            status: HttpStatus.UNAUTHORIZED,
+            message: 'No Token found!'
+        }],
+        [CODES.AUTH.NO_TOKEN_PAYLOAD, {
+            code: CODES.AUTH.NO_TOKEN_PAYLOAD,
+            status: HttpStatus.UNAUTHORIZED,
+            message: 'No token payload found!'
+        }],
+
+
         [CODES.SESSION.EMPTY, {
             code: CODES.SESSION.EMPTY,
             status: HttpStatus.UNAUTHORIZED,
@@ -129,7 +156,7 @@ export const ERROR_BY_CODE = new Map([
         }],
 
 
-            [CODES.LICENSE.NOT_FOUND, {
+        [CODES.LICENSE.NOT_FOUND, {
             code: CODES.LICENSE.NOT_FOUND,
             status: HttpStatus.BAD_REQUEST,
             message: `No such license found!`
@@ -152,6 +179,18 @@ export const ERROR_BY_CODE = new Map([
             code: CODES.FEATURE.NOT_AVAILABLE,
             status: HttpStatus.FORBIDDEN,
             message: `This Feature is not available for you license!`
+        }],
+
+
+        [CODES.PERMISSION.NOT_FOUND, {
+            code: CODES.PERMISSION.NOT_FOUND,
+            status: HttpStatus.FORBIDDEN,
+            message: `You don't have necessery permissions to enter!`
+        }],
+        [CODES.PERMISSION.NONE_AVAILABLE, {
+            code: CODES.PERMISSION.NONE_AVAILABLE,
+            status: HttpStatus.FORBIDDEN,
+            message: `You don't have any permissions!`
         }],
     ]
 )
