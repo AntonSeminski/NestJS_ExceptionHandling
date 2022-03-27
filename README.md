@@ -32,6 +32,7 @@ Includes:
 
 Exception structure: 
     {
+        code: "ERROR:<ENTITY>-<CODE_MESSAGE>"
         status: 500,
         message: 'This was screwed',
         body: { any info you like }
@@ -40,10 +41,42 @@ Exception structure:
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Use
+
+# installation
+```bash
+$ npm install @asemin/nestjs-exception-handling
+```
+
+# Handler creation example
+Class must extend ExceptionHandler and implement `handle` method. Method must return HandlerExceptionDto filled.
+```
+export class MongoExceptionHandler extends ExceptionHandler{
+    handle(exception: any): HandledExceptionDto {
+        if ( !(exception instanceof MongoError) )
+            return this.next?.handle(exception);
+
+        switch (exception.code) {
+            case 11000:
+                return new HandledExceptionDto(getException(CODES.DATABASE.DUPLICATE));
+        }
+
+        return null;
+    }
+}
+```
+
 #handlers chain creation
+Each member must extend ExceptionHandler
+```
+export const handlersChain = [
+    new MongoExceptionHandler(),
+    new ValidationExceptionHandler(),
+    new CustomExceptionHandler(),
+    new HttpExceptionHandler()
+];
+```
 
-
-#main.ts
+#Nestjs exception filter configuration. main.ts:
 ```bash
     const exceptionFilter = new ExceptionFilter(
         <ExceptionHandler>createExceptionHandlersChain(handlersChain)
@@ -51,40 +84,17 @@ Exception structure:
 
     app.useGlobalFilters(exceptionFilter);
 ```
-```bash
-$ npm install @asemin/nestjs-exception-handling
+
+## Custom exception use
+
+# throwException
+Use one of the codes. Fill free to put any information to body (second param)
+If there are no code suitable - throw any exception type manually.
+```
+throwException(CODES.COMMON.EMPTY_PARAM, {method: 'getByPermissionAndPermissionSets', fields: {permissionId, permissionSetIds}})
 ```
 
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# getException info
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+const {code, status, message} = getException(CODES.COMMON.UNKNOWN);
 ```
-
-
-## License
-
-Nest is [MIT licensed](LICENSE).
-
-## Deploy
-npm publish
