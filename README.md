@@ -57,7 +57,7 @@ export class MongoExceptionHandler extends ExceptionHandler{
 
         switch (exception.code) {
             case 11000:
-                return new HandledExceptionDto(getException(CODES.DATABASE.DUPLICATE));
+                return new HandledExceptionDto(getException(API_ERROR_CODES.DATABASE.DUPLICATE));
         }
 
         return null;
@@ -65,7 +65,7 @@ export class MongoExceptionHandler extends ExceptionHandler{
 }
 ```
 
-#handlers chain creation
+# handlers chain creation
 Each member must extend ExceptionHandler
 ```
 export const handlersChain = [
@@ -76,7 +76,7 @@ export const handlersChain = [
 ];
 ```
 
-#Nestjs exception filter configuration. main.ts:
+# Nestjs exception filter configuration. main.ts:
 ```bash
     const exceptionFilter = new ExceptionFilter(
         <ExceptionHandler>createExceptionHandlersChain(handlersChain)
@@ -91,10 +91,10 @@ export const handlersChain = [
 Use one of the codes. Fill free to put any information to body (second param)
 If there are no code suitable - throw any exception type manually.
 ```
-throwException(CODES.COMMON.EMPTY_PARAM, {method: 'getByPermissionAndPermissionSets', fields: {permissionId, permissionSetIds}})
+throwException(API_ERROR_CODES.COMMON.EMPTY_PARAM, {method: 'getByPermissionAndPermissionSets', fields: {permissionId, permissionSetIds}})
 ```
 
 # getException info
 ```
-const {code, status, message} = getException(CODES.COMMON.UNKNOWN);
+const {code, status, message} = getException(API_ERROR_CODES.COMMON.UNKNOWN);
 ```

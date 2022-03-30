@@ -2,7 +2,7 @@ import {HandledExceptionDto} from "../../dto/handled-exception.dto";
 import {HttpException} from "@nestjs/common";
 import {ExceptionHandler} from "../abstract/exception.handler";
 import {getException} from "../../services/exception.service";
-import {CODES} from "../../constants/codes.constants";
+import {API_ERROR_CODES} from "@jira-killer/constants";
 
 export class HttpExceptionHandler extends ExceptionHandler {
     handle(exception: any): HandledExceptionDto {
@@ -11,7 +11,7 @@ export class HttpExceptionHandler extends ExceptionHandler {
 
         const status = exception.getStatus();
 
-        const {code, message: codeMessage} = getException(CODES.HTTP[status]);
+        const {code, message: codeMessage} = getException(API_ERROR_CODES.HTTP[status]);
 
         const message = exception.message ? exception.message : codeMessage;
 

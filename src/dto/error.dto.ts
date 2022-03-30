@@ -1,8 +1,6 @@
-import {HttpStatus} from "../constants/http-status.constants";
-
 export class ErrorDto {
     code: string;
-    status?: number | HttpStatus;
+    status?: number;
     message?: string;
     body?: any;
 }
