@@ -1,6 +1,6 @@
 {
   "name": "@asemin/nestjs-exception-handling",
-  "version": "1.0.8",
+  "version": "1.0.18",
   "description": "",
   "author": "Anton Semin <anton.siaminski@gmail.com>, Vladzimir Karpov",
   "private": false,
@@ -20,7 +20,7 @@
   },
   "bugs": "https://github.com/AntonSeminski/NestJS_ExceptionHandling",
   "dependencies": {
-    "@jira-killer/constants": "^1.0.0",
+    "@jira-killer/constants": "^1.0.1",
     "@nestjs/common": "^8.0.0",
     "@nestjs/platform-fastify": "^8.2.6",
     "fastify": "^3.27.0"

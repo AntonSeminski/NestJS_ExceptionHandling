@@ -45,6 +45,5 @@ export {
     createExceptionHandlersChain,
     getArguments,
     zip,
-    isHasEmpty,
-    isHasEmptyParams
+    isHasEmpty, isHasEmptyParams
 }

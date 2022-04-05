@@ -11,10 +11,10 @@ export class HttpExceptionHandler extends ExceptionHandler {
 
         const status = exception.getStatus();
 
-        const {code, message: codeMessage} = getException(API_ERROR_CODES.HTTP[status]);
+        const error = getException(API_ERROR_CODES.HTTP[status]);
 
-        const message = exception.message ? exception.message : codeMessage;
+        error.message = exception.message ? exception.message : error.message;
 
-        return new HandledExceptionDto({code, status, message});
+        return new HandledExceptionDto(error);
     }
 }

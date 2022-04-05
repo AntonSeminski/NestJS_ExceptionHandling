@@ -20,6 +20,8 @@ export class ExceptionFilter {
         const handledException: HandledExceptionDto = this.handler?.handle(exception);
         const internalErrorException: HandledExceptionDto = new HandledExceptionDto(getException(API_ERROR_CODES.COMMON.UNKNOWN));
 
+        internalErrorException.body = {error: exception.message}
+
         const responseException = handledException ? handledException : internalErrorException;
 
         console.log(`Exception : ${JSON.stringify(responseException)}`)
