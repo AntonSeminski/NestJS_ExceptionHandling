@@ -31,12 +31,15 @@ Includes:
     * Implemented Nest JS Validation Exception handler
 
 Exception structure: 
+```
     {
         code: "ERROR:<ENTITY>-<CODE_MESSAGE>"
         status: 500,
+        title: "Error!",
         message: 'This was screwed',
         body: { any info you like }
     }
+```
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
