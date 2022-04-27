@@ -17,14 +17,18 @@ export class ExceptionFilter {
         const context = host.switchToHttp();
         const response = context.getResponse<FastifyReply>();
 
+        console.log(`primary exception status: ${JSON.stringify(exception.status)}`)
+        console.log(`primary exception message: ${JSON.stringify(exception.message)}`)
+        console.log(`primary exception body: ${JSON.stringify(exception.body)}`)
+
         const handledException: HandledExceptionDto = this.handler?.handle(exception);
         const internalErrorException: HandledExceptionDto = new HandledExceptionDto(getException(API_ERROR_CODES.COMMON.UNKNOWN));
 
-        internalErrorException.body = {error: exception.message}
+        internalErrorException.body = {error: exception.message};
 
-        const responseException = handledException ? handledException : internalErrorException;
+        const responseException = handledException ?? internalErrorException;
 
-        console.log(`Exception : ${JSON.stringify(responseException)}`)
+        console.log(`response exception: ${JSON.stringify(responseException)}`)
 
         response
             .code(responseException.status)

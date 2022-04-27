@@ -9,6 +9,9 @@ export class HttpExceptionHandler extends ExceptionHandler {
         if (!(exception instanceof HttpException))
             return this.next?.handle(exception);
 
+        console.log(`Http exception`)
+        console.log(`Http exception: ${JSON.stringify(exception)}`)
+
         const status = exception.getStatus();
 
         const error = getException(API_ERROR_CODES.HTTP[status]);

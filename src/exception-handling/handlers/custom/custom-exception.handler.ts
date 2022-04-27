@@ -7,6 +7,9 @@ export class CustomExceptionHandler extends ExceptionHandler {
         if ( !(exception instanceof CustomException) )
             return this.next?.handle(exception)
 
+        console.log(`Custom exception`)
+        console.log(`Custom exception: ${JSON.stringify(exception)}`)
+
         return new HandledExceptionDto(exception);
     }
 }

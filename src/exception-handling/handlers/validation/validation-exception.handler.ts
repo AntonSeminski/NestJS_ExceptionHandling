@@ -7,6 +7,9 @@ class ValidationExceptionHandler extends ExceptionHandler{
         if ( !(exception instanceof ValidationException) )
             return this.next?.handle(exception);
 
+        console.log(`Validation exception`)
+        console.log(`Validation exception: ${JSON.stringify(exception)}`)
+
         return new HandledExceptionDto(exception);
     }
 }
