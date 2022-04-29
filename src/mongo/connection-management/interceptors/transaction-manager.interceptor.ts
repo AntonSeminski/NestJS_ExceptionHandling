@@ -48,9 +48,12 @@ export const TransactionManagerInterceptor: any = (connectionName: DatabaseConne
         async endSession(session, mongoConnectionName, uniqConnectionName) {
             await session.endSession();
 
-            await this.mongoConnection.close();
-
             this.sessionManager.removeSession(uniqConnectionName);
+
+            if (connectionName === DatabaseConnectionTypeEnum.SHARED)
+                return;
+
+            await this.mongoConnection.close();
             // @ts-ignore
             mongoose.connections = mongoose.connections.filter(conn => conn.name !== mongoConnectionName);
         }
