@@ -4,7 +4,7 @@ import {InjectConnection} from '@nestjs/mongoose';
 import * as mongoose from "mongoose";
 import {catchError, Observable, tap} from 'rxjs';
 import {DatabaseConnectionTypeEnum} from '../constants/database-connection-type.constants';
-import {SessionManagerProvider} from '../../session-management';
+import {SessionManager} from '../../session-management';
 
 export const TransactionManagerInterceptor: any = (connectionName: DatabaseConnectionTypeEnum) => {
 
@@ -12,14 +12,14 @@ export const TransactionManagerInterceptor: any = (connectionName: DatabaseConne
         constructor(
             @InjectConnection(connectionName) private mongoConnection: mongoose.Connection,
             @Inject(REQUEST) private request,
-            private sessionManager: SessionManagerProvider
+            private sessionManager: SessionManager
         ) {}
 
         async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
             if (!this.mongoConnection) return next.handle();
 
             const mongoConnectionName = this.mongoConnection.name;
-            const uniqConnectionName = connectionName + this.request.id;
+            const uniqConnectionName = this.sessionManager.createUniqConnectionName(connectionName, this.request);
 
             const session = await this.mongoConnection.startSession();
 
