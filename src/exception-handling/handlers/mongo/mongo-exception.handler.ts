@@ -11,7 +11,7 @@ export class MongoExceptionHandler extends ExceptionHandler{
 
         switch (exception.code) {
             case 11000:
-                const {code, status, message} = getException(API_ERROR_CODES.USER.DUPLICATE);
+                const {code, status, message} = getException(API_ERROR_CODES.DATABASE.DUPLICATE);
 
                 return new HandledExceptionDto({code, status, message});
         }

@@ -1,6 +1,6 @@
 import {CanActivate, ExecutionContext, Inject, Injectable, mixin} from '@nestjs/common';
 import {JwtTokenService} from "../../jwt";
-import {validateAuthInfo} from "../../utils/request.utils";
+import {AuthInfo} from "../../utils/request.utils";
 
 export const AuthGuard: any = (tokenServiceType: JwtTokenService) => {
     @Injectable()
@@ -11,7 +11,7 @@ export const AuthGuard: any = (tokenServiceType: JwtTokenService) => {
             const request = context.switchToHttp().getRequest();
             const authTokenType = process.env.AUTH_TOKEN_TYPE ?? 'Bearer';
 
-            request.user = await validateAuthInfo(request, authTokenType, this.tokenService);
+            request.user = await AuthInfo.validate(request, authTokenType, this.tokenService);
 
             return true;
         }

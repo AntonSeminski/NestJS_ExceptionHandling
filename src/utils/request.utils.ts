@@ -3,62 +3,83 @@ import {API_ERROR_CODES} from '@jira-killer/constants'
 import {JwtTokenService} from "../jwt";
 import {isHasEmpty, throwException} from "../exception-handling";
 
-const validateAuthInfo = async (request, authType, jwtService: JwtTokenService) => {
-    if (isHasEmpty(request, authType, jwtService))
-        throwException(API_ERROR_CODES.COMMON.EMPTY_PARAM, {
-            method: 'checkAuthorizationInfo',
-            fields: {authType, jwtService}
+export class AuthInfo {
+    static validate = async (request, authType, jwtService: JwtTokenService) => {
+        if (isHasEmpty(request, authType, jwtService))
+            throwException(API_ERROR_CODES.COMMON.EMPTY_PARAM, {
+                method: 'checkAuthorizationInfo',
+                fields: {authType, jwtService}
+            });
+
+        const authHeader = request.headers?.authorization;
+
+        if (!authHeader)
+            throwException(API_ERROR_CODES.AUTH.NO_AUTH_HEADER);
+
+        const [type, token] = authHeader.split(' ');
+
+        if (type !== authType)
+            throwException(API_ERROR_CODES.AUTH.WRONG_AUTH_TYPE);
+
+        if (!token)
+            throwException(API_ERROR_CODES.AUTH.NO_TOKEN);
+
+        const payload = await jwtService
+            .verify(token)
+            .catch(error => throwException(API_ERROR_CODES.AUTH.INVALID_TOKEN, {reason: error.message}));
+
+        if (!payload)
+            throwException(API_ERROR_CODES.AUTH.NO_TOKEN_PAYLOAD);
+
+        return payload;
+    }
+
+    static getAll = async (request): Promise<any> => {
+        if (!request) throwException(API_ERROR_CODES.COMMON.EMPTY_PARAM, {
+            method: 'getAll',
+            params: {request: request}
         });
 
-    const authHeader = request.headers?.authorization;
+        const authHeader = request.headers.authorization;
+        if (!authHeader) throwException(API_ERROR_CODES.AUTH.NO_AUTH_HEADER);
 
-    if (!authHeader)
-        throwException(API_ERROR_CODES.AUTH.NO_AUTH_HEADER);
+        const token = authHeader.split(' ')?.[1];
 
-    const [type, token] = authHeader.split(' ');
+        return new JwtService({}).decode(token);
+    }
 
-    if (type !== authType)
-        throwException(API_ERROR_CODES.AUTH.WRONG_AUTH_TYPE);
+    static getAllFromHeader = async (authHeader: string): Promise<any> => {
+        if (isHasEmpty(authHeader)) throwException(API_ERROR_CODES.AUTH.NO_AUTH_HEADER);
 
-    if (!token)
-        throwException(API_ERROR_CODES.AUTH.NO_TOKEN);
+        const token = authHeader.split(' ')?.[1];
 
-    const payload = await jwtService.verify(token)
-        .catch(error => throwException(API_ERROR_CODES.AUTH.INVALID_TOKEN, {reason: error.message}));
+        return new JwtService({}).decode(token);
+    }
 
-    if (!payload)
-        throwException(API_ERROR_CODES.AUTH.NO_TOKEN_PAYLOAD);
+    static getByName = async (request, fieldName: string) => {
+        if (request.user) return request.user[fieldName];
 
-    return payload;
-}
+        return this.getAllFromHeader(request.headers.authorization).then(payload => payload[fieldName]);
+    }
 
-const getAuthInfo = async (authHeader: string): Promise<any> => {
-    if (isHasEmpty(authHeader)) throwException(API_ERROR_CODES.AUTH.NO_AUTH_HEADER);
+    static getByNames = async (request, fieldNames: string[]) => {
+        if (request.user) return fieldNames.map(fieldName => request.user[fieldName]);
 
-    const [type, token] = authHeader.split(' ');
+        const authPayload = await this.getAllFromHeader(request.headers.authorization);
 
-    return new JwtService({}).decode(token);
-}
+        return fieldNames.map(fieldName => authPayload[fieldName]);
+    }
 
-const getAuthInfoByName = async (request, fieldName: string) => {
-    if (request.user) return request.user[fieldName];
+    static getAllPermissionSets = async (request) => [
+        ...await this.getByName(request, 'permissionsSets'),
+        await this.getByName(request, 'profile')]
+    ;
 
-    return getAuthInfo(request.headers.authorization).then(payload => payload[fieldName]);
-}
+    static getPermissionSets = async (request) => this.getByName(request, 'permissionsSets');
 
-const getAuthInfoByNames = async (request, fieldNames: string[]) => {
-    if (request.user) return fieldNames.map(fieldName => request.user[fieldName]);
+    static getProfile = async (request) => this.getByName(request, 'profile');
 
-    const authPayload = await getAuthInfo(request.headers.authorization);
+    static getUserId = async (request) => this.getByName(request, '_id');
 
-    return fieldNames.map(fieldName => authPayload[fieldName]);
-}
-
-const getUserId = async (request) => getAuthInfoByName(request, '_id');
-
-const getUserRole = async (request) => getAuthInfoByName(request, 'role');
-
-export {
-    validateAuthInfo, getAuthInfo,
-    getAuthInfoByName, getAuthInfoByNames, getUserId, getUserRole
+    static getUserRole = async (request) => this.getByName(request, 'role');
 }

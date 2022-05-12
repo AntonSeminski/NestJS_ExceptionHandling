@@ -11,8 +11,8 @@ export const TransactionManagerInterceptor: any = (connectionName: DatabaseConne
     class TransactionManager implements NestInterceptor {
         constructor(
             @InjectConnection(connectionName) private mongoConnection: mongoose.Connection,
-            private sessionManager: SessionManagerProvider,
-            @Inject(REQUEST) private request
+            @Inject(REQUEST) private request,
+            private sessionManager: SessionManagerProvider
         ) {}
 
         async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
@@ -26,7 +26,6 @@ export const TransactionManagerInterceptor: any = (connectionName: DatabaseConne
             session.startTransaction({});
             this.sessionManager.setSession(uniqConnectionName, session);
 
-            console.log(`session id: ${connectionName + this.request.id}`)
             console.log(`connections: ${mongoose.connections.length}`)
             console.log(`opened connections: ${mongoose.connections.filter(conn => conn.readyState !== 0).length}`)
 
@@ -38,9 +37,9 @@ export const TransactionManagerInterceptor: any = (connectionName: DatabaseConne
                 }),
                 catchError(async (error) => {
                     await session.abortTransaction();
-
+                    console.log(`abort transaction`)
                     await this.endSession(session, mongoConnectionName, uniqConnectionName);
-
+                    console.log(`end session`)
                     throw error;
                 }));
         }
