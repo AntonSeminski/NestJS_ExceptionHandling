@@ -3,10 +3,10 @@ import {REQUEST} from '@nestjs/core';
 import {InjectConnection} from '@nestjs/mongoose';
 import * as mongoose from "mongoose";
 import {catchError, Observable, tap} from 'rxjs';
-import {DatabaseConnectionTypeEnum} from '../constants/database-connection-type.constants';
+import {EDatabaseConnectionType} from '../constants/database-connection-type.enum';
 import {SessionManager} from '../../session-management';
 
-export const TransactionManagerInterceptor: any = (connectionName: DatabaseConnectionTypeEnum) => {
+export const TransactionManagerInterceptor: any = (connectionName: EDatabaseConnectionType) => {
 
     class TransactionManager implements NestInterceptor {
         constructor(
@@ -49,7 +49,7 @@ export const TransactionManagerInterceptor: any = (connectionName: DatabaseConne
 
             this.sessionManager.removeSession(uniqConnectionName);
 
-            if (connectionName === DatabaseConnectionTypeEnum.SHARED)
+            if (connectionName === EDatabaseConnectionType.Shared)
                 return;
 
             await this.mongoConnection.close();

@@ -1,4 +1,4 @@
 import {TransactionManagerInterceptor} from "./transaction-manager.interceptor";
-import {DatabaseConnectionTypeEnum} from "../constants/database-connection-type.constants";
+import {EDatabaseConnectionType} from "../constants/database-connection-type.enum";
 
-export class SharedTransactionManager extends TransactionManagerInterceptor(DatabaseConnectionTypeEnum.SHARED) {}
+export class SharedTransactionManager extends TransactionManagerInterceptor(EDatabaseConnectionType.Shared) {}

@@ -26,7 +26,7 @@ export class AuthInfo {
 
         const payload = await jwtService
             .verify(token)
-            .catch(error => throwException(API_ERROR_CODES.AUTH.INVALID_TOKEN, {reason: error.message}));
+            .catch(error => throwException(API_ERROR_CODES.AUTH.INVALID_TOKEN, {reason: error.message, tokenType: this.getByName(request, 'tokenType')}));
 
         if (!payload)
             throwException(API_ERROR_CODES.AUTH.NO_TOKEN_PAYLOAD);
@@ -44,6 +44,7 @@ export class AuthInfo {
         if (!authHeader) throwException(API_ERROR_CODES.AUTH.NO_AUTH_HEADER);
 
         const token = authHeader.split(' ')?.[1];
+        if (!token) throwException(API_ERROR_CODES.AUTH.NO_TOKEN);
 
         return new JwtService({}).decode(token);
     }
@@ -52,6 +53,7 @@ export class AuthInfo {
         if (isHasEmpty(authHeader)) throwException(API_ERROR_CODES.AUTH.NO_AUTH_HEADER);
 
         const token = authHeader.split(' ')?.[1];
+        if (!token) throwException(API_ERROR_CODES.AUTH.NO_TOKEN);
 
         return new JwtService({}).decode(token);
     }

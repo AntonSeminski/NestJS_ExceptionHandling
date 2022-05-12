@@ -1,6 +1,6 @@
 import {Inject} from "@nestjs/common";
 import {SessionManager} from "./session-manager.service";
-import {DatabaseConnectionTypeEnum} from "../../connection-management";
+import {EDatabaseConnectionType} from "../../connection-management";
 import {REQUEST} from "@nestjs/core";
 
 export abstract class MongoManager {
@@ -9,7 +9,7 @@ export abstract class MongoManager {
 
     private readonly connectionType: string;
 
-    protected constructor(connectionType: DatabaseConnectionTypeEnum) {
+    protected constructor(connectionType: EDatabaseConnectionType) {
         this.connectionType = this.sessionManager.createUniqConnectionName(connectionType, this.request);
     }
 
