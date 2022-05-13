@@ -1,6 +1,6 @@
 {
   "name": "@asemin/nestjs-utils",
-  "version": "3.0.10",
+  "version": "3.0.13",
   "description": "",
   "author": "Anton Semin <anton.siaminski@gmail.com>, Vladzimir Karpov",
   "private": false,
@@ -20,7 +20,7 @@
   },
   "bugs": "https://github.com/AntonSeminski/NestJS_ExceptionHandling",
   "dependencies": {
-    "@jira-killer/constants": "^1.0.3",
+    "@jira-killer/constants": "^1.0.17",
     "@jira-killer/metadata": "^2.0.3",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^2.0.0",
