@@ -19,5 +19,5 @@ export class SessionManager {
         this.sessions?.delete(connectionName);
     }
 
-    createUniqConnectionName = (connectionName: EDatabaseConnectionType, request) => connectionName + request?.id;
+    static createUniqConnectionName = (connectionName: EDatabaseConnectionType, request) => connectionName + request?.id;
 }

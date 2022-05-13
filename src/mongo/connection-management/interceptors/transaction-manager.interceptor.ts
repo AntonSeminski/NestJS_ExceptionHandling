@@ -19,7 +19,7 @@ export const TransactionManagerInterceptor: any = (connectionName: EDatabaseConn
             if (!this.mongoConnection) return next.handle();
 
             const mongoConnectionName = this.mongoConnection.name;
-            const uniqConnectionName = this.sessionManager.createUniqConnectionName(connectionName, this.request);
+            const uniqConnectionName = SessionManager.createUniqConnectionName(connectionName, this.request);
 
             const session = await this.mongoConnection.startSession();
 
