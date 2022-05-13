@@ -43,11 +43,11 @@ const timeToMs = (time: string): number => {
 }
 
 const isExpired = (expirationTime) => {
-    return expirationTime < Date.now();
+    return expirationTime < new Date(Date.now()).getTime();
 }
 
 const isExpiredWithCodeDiff= (expirationTime, diffPower) => {
-    return expirationTime < Date.now() / (10 * diffPower);
+    return expirationTime < (new Date(Date.now()).getTime() / (10 * diffPower));
 }
 
 export {
