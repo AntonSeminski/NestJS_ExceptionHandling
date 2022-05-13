@@ -21,7 +21,7 @@ export abstract class JwtTokenService {
     }
 
     async generate(payload: any,): Promise<string> {
-        if (this.type) payload.type = this.type;
+        if (this.type) payload.tokenType = this.type;
 
         return this.jwtService.sign(payload, {secret: this.secret, expiresIn: this.expiresIn});
     }
@@ -36,8 +36,8 @@ export abstract class JwtTokenService {
 
     async generateFromToken(token: string) {
         const payload = await this.jwtService.decode(token);
-        delete payload.exp;
 
+        delete payload.exp;
         if (this.type) payload.tokenType = this.type;
 
         return this.jwtService.sign(payload, {secret: this.secret, expiresIn: this.expiresIn});
