@@ -34,12 +34,14 @@ export abstract class JwtTokenService {
         return this.jwtService.verify(token, {secret: this.secret});
     }
 
-    async generateFromToken(token: string) {
+    async generateFromToken(token) {
         const payload = await this.jwtService.decode(token);
 
         delete payload.exp;
+        delete payload.iat;
+
         if (this.type) payload.tokenType = this.type;
 
-        return this.jwtService.sign(payload, {secret: this.secret, expiresIn: this.expiresIn});
+        return this.jwtService.sign(payload, { secret: this.secret, expiresIn: this.expiresIn });
     }
 }
