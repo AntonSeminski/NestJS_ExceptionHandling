@@ -1,1 +1,1 @@
-export type RequestBooleanFunction = (request: any) => boolean;
+export type RequestBooleanFunction = (request: any) => boolean | Promise<boolean>;

@@ -6,6 +6,7 @@ import {Reflector} from "@nestjs/core";
  * @description Skips guard execution if metadata is set to true;
  * @param metadataName - metadata name. Example: 'Skip Guards'.
  * @param guard - Nestjs Guard implementation.
+ * @return Guard
  */
 export const SkipIfMeta = (metadataName: string, guard: any): any => {
 

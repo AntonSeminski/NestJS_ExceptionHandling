@@ -4,6 +4,7 @@ import {CanActivate, ExecutionContext, Inject, Injectable, mixin} from "@nestjs/
  * @description Sets true to metadata if why.is returns true;
  * @param metadataName - metadata name. Example: 'Skip Guards'.
  * @param why - Injectable class that implements IIs interface (has is(request):boolean method)
+ * @return Guard.
  */
 export const SetMetaIfAdvanced = (metadataName: string, why: any): any => {
 

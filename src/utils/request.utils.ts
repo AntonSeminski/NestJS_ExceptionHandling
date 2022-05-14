@@ -72,10 +72,12 @@ export class AuthInfo {
         return fieldNames.map(fieldName => authPayload[fieldName]);
     }
 
-    static getAllPermissionSets = async (request) => [
-        ...await this.getByName(request, 'permissionsSets'),
-        await this.getByName(request, 'profile')]
-    ;
+    static getAllPermissionSets = async (request) => {
+        return [
+            ...(await this.getByName(request, 'permissionsSets') ?? []),
+            await this.getByName(request, 'profile')]
+        ;
+    }
 
     static getPermissionSets = async (request) => this.getByName(request, 'permissionsSets');
 
