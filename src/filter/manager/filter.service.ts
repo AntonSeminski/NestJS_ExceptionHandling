@@ -14,26 +14,28 @@ export class FilterService {
 
         console.log(`filters: ${JSON.stringify(filters)}`);
 
-        search.filterLogic?.split(' ').forEach(char => {
-            char = char.trim();
+        search.filterLogic
+            ?.split(' ')
+            .forEach(char => {
+                char = char.trim();
 
-            if (this.isOperator(char)) result += `{"${logic_operators[char]}":`;
+                if (this.isOperator(char)) result += `{"${logic_operators[char]}":`;
 
-            else if (this.isNumber(char)) result += JSON.stringify(filters[+char - 1]);
+                else if (this.isNumber(char)) result += JSON.stringify(filters[+char - 1]);
 
-            else if (char === '(') result += '[';
+                else if (char === '(') result += '[';
 
-            else if (char === ')') result += ']}';
+                else if (char === ')') result += ']}';
 
-            else if (char === ',') result += ',';
-        });
+                else if (char === ',') result += ',';
+            });
 
         console.log(`filters: ${JSON.stringify(result)}`);
 
         return JSON.parse(result);
     }
 
-    static isOperator = (operator: string) => logic_operators[operator];
+    static isOperator = (operator: string): boolean => !!logic_operators[operator];
 
-    static isNumber = (word: string) => new RegExp(/^\d+$/).test(word);
+    static isNumber = (word: string): boolean => new RegExp(/^\d+$/).test(word);
 }

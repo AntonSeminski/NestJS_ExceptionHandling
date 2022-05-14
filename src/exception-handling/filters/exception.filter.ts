@@ -22,8 +22,8 @@ export class ExceptionFilter {
         console.log(`primary exception body: ${JSON.stringify(exception.body)}`)
 
         const handledException: HandledExceptionDto = this.handler?.handle(exception);
-        const internalErrorException: HandledExceptionDto = new HandledExceptionDto(getException(API_ERROR_CODES.COMMON.UNKNOWN));
 
+        const internalErrorException: HandledExceptionDto = new HandledExceptionDto(getException(API_ERROR_CODES.COMMON.UNKNOWN));
         internalErrorException.body = {error: exception.message};
 
         const responseException = handledException ?? internalErrorException;

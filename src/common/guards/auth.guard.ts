@@ -1,6 +1,6 @@
 import {CanActivate, ExecutionContext, Inject, Injectable, mixin} from '@nestjs/common';
 import {JwtTokenService} from "../../jwt";
-import {AuthInfo} from "../../utils/request.utils";
+import {AuthInfo} from "../../utils";
 
 export const AuthGuard: any = (tokenServiceType: JwtTokenService) => {
     @Injectable()
