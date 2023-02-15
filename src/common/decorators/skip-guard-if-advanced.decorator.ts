@@ -1,5 +1,6 @@
 import {SetMetaIfAdvanced, SkipIfMeta} from "../guards";
 import {applyDecorators, UseGuards} from "@nestjs/common";
+import {IIsSkip} from "../interfaces/is-skip.interface";
 
 /**
  * @description Skips guard execution if condition is true.
@@ -7,7 +8,7 @@ import {applyDecorators, UseGuards} from "@nestjs/common";
  * @param guard Nestjs Guard implementation.
  * @return MethodDecorator | ClassDecorator
  */
-export const SkipGuardIfAdvanced = (condition: any, guard: any) => {
+export const SkipGuardIfAdvanced = (condition: IIsSkip, guard: any) => {
     const randomMetadataName = 'SkipIf' + Math.random().toFixed(3);
 
     return applyDecorators(

@@ -15,8 +15,7 @@ export const SetMetaIfAdvanced = (metadataName: string, why: any): any => {
         async canActivate(context: ExecutionContext): Promise<boolean> {
             const request = context.switchToHttp().getRequest();
 
-            if (await this.why.is(request))
-                Reflect.defineMetadata(metadataName, true, context.getHandler());
+            if (await this.why.is(request)) Reflect.defineMetadata(metadataName, true, context.getHandler());
 
             return true;
         }

@@ -12,24 +12,17 @@ export class AuthInfo {
             });
 
         const authHeader = request.headers?.authorization;
-
-        if (!authHeader)
-            throwException(API_ERROR_CODES.AUTH.NO_AUTH_HEADER);
+        if (!authHeader) throwException(API_ERROR_CODES.AUTH.NO_AUTH_HEADER);
 
         const [type, token] = authHeader.split(' ');
-
-        if (type !== authType)
-            throwException(API_ERROR_CODES.AUTH.WRONG_AUTH_TYPE);
-
-        if (!token)
-            throwException(API_ERROR_CODES.AUTH.NO_TOKEN);
+        if (type !== authType) throwException(API_ERROR_CODES.AUTH.WRONG_AUTH_TYPE);
+        if (!token) throwException(API_ERROR_CODES.AUTH.NO_TOKEN);
 
         const payload = await jwtService
             .verify(token)
             .catch(error => throwException(API_ERROR_CODES.AUTH.INVALID_TOKEN, {reason: error.message, tokenType: this.getByName(request, 'tokenType')}));
 
-        if (!payload)
-            throwException(API_ERROR_CODES.AUTH.NO_TOKEN_PAYLOAD);
+        if (!payload) throwException(API_ERROR_CODES.AUTH.NO_TOKEN_PAYLOAD);
 
         return payload;
     }

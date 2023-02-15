@@ -1,18 +1,27 @@
+/**
+ * @param time - formatted time;
+ * @description Example: '1s' <br/>
+ *Supported  time measures: <br/>
+ * s  - second; <br/>
+ * m - minute; <br/>
+ * h - hour; <br/>
+ * d - day; <br/>
+ * w - week (7 days).
+ */
 const addTimeToNow = (time: string): number => {
-    if (!time)
-        return 0;
+    if (!time) return 0;
 
     return Date.now() + timeToMs(time);
 }
-/***
- *
+
+/**
  * @param time - formatted time;
- * Example: '1s';
- * Supported  time measures:
- * s  - second;
- * m - minute;
- * h - hour;
- * d - day;
+ * @description Example: '1s' <br/>
+ *Supported  time measures: <br/>
+ * s  - second; <br/>
+ * m - minute; <br/>
+ * h - hour; <br/>
+ * d - day; <br/>
  * w - week (7 days).
  */
 const timeToMs = (time: string): number => {
@@ -42,17 +51,17 @@ const timeToMs = (time: string): number => {
     return milliseconds * value;
 }
 
-const isExpired = (expirationTime) => {
+const isTimeExpired = (expirationTime) => {
     return expirationTime < Date.now();
 }
 
-const isExpiredWithCodeDiff= (expirationTime, diffPower) => {
+const isTimeExpiredWithCodeDiff= (expirationTime, diffPower) => {
     return expirationTime < (Date.now() / (10 ** diffPower));
 }
 
 export {
     timeToMs,
     addTimeToNow,
-    isExpiredWithCodeDiff,
-    isExpired
+    isTimeExpired,
+    isTimeExpiredWithCodeDiff
 };
