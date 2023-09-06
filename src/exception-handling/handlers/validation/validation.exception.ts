@@ -1,10 +1,10 @@
 import {ValidationError} from "@nestjs/common";
 import {CustomException} from "../../exceptions/custom.exception";
-import {API_ERROR_CODES} from '@jira-killer/constants';
+import {CODES} from '@buildery/error-codes';
 
 export class ValidationException extends CustomException {
     constructor(validationErrors: ValidationError[]) {
-        super(API_ERROR_CODES.VALIDATION)
+        super(CODES.VALIDATION)
 
         this.body = {
             errors: this.getErrorMessages(validationErrors)

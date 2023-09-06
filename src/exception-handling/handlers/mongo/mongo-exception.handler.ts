@@ -1,5 +1,5 @@
 import {MongoError} from "mongodb";
-import {API_ERROR_CODES} from '@jira-killer/constants'
+import {CODES} from '@buildery/error-codes'
 import {ExceptionHandler} from "../abstract/exception.handler";
 import {HandledExceptionDto} from "../../dto/handled-exception.dto";
 import {getException} from "../../services/exception.service";
@@ -11,7 +11,7 @@ export class MongoExceptionHandler extends ExceptionHandler{
 
         switch (exception.code) {
             case 11000:
-                const {code, status, message} = getException(API_ERROR_CODES.DATABASE.DUPLICATE);
+                const {code, status, message} = getException(CODES.DATABASE.DUPLICATE);
 
                 return new HandledExceptionDto({code, status, message});
         }

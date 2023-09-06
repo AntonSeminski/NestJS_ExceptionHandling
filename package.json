@@ -1,6 +1,6 @@
 {
   "name": "@asemin/nestjs-utils",
-  "version": "3.0.23",
+  "version": "4.0.0",
   "description": "",
   "author": "Anton Semin <anton.siaminski@gmail.com>, Vladzimir Karpov",
   "private": false,
@@ -20,9 +20,10 @@
   },
   "bugs": "https://github.com/AntonSeminski/NestJS_ExceptionHandling",
   "dependencies": {
+    "@buildery/error-codes": "^1.1.0",
     "@jira-killer/constants": "^1.0.17",
     "@jira-killer/metadata": "^2.0.3",
-    "@nestjs/common": "^8.0.0",
+    "@nestjs/common": "^10.2.1",
     "@nestjs/config": "^2.0.0",
     "@nestjs/jwt": "^8.0.0",
     "@nestjs/mongoose": "^9.0.3",

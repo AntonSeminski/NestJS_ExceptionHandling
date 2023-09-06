@@ -1,52 +1,55 @@
 import {JwtService} from "@nestjs/jwt";
-import {API_ERROR_CODES} from '@jira-killer/constants'
+import {CODES} from '@buildery/error-codes'
 import {JwtTokenService} from "../jwt";
 import {isHasEmpty, throwException} from "../exception-handling";
 
 export class AuthInfo {
     static validate = async (request, authType, jwtService: JwtTokenService) => {
         if (isHasEmpty(request, authType, jwtService))
-            throwException(API_ERROR_CODES.COMMON.EMPTY_PARAM, {
+            throwException(CODES.COMMON.EMPTY_PARAM, {
                 method: 'checkAuthorizationInfo',
                 fields: {authType, jwtService}
             });
 
         const authHeader = request.headers?.authorization;
-        if (!authHeader) throwException(API_ERROR_CODES.AUTH.NO_AUTH_HEADER);
+        if (!authHeader) throwException(CODES.AUTH.NO_AUTH_HEADER);
 
         const [type, token] = authHeader.split(' ');
-        if (type !== authType) throwException(API_ERROR_CODES.AUTH.WRONG_AUTH_TYPE);
-        if (!token) throwException(API_ERROR_CODES.AUTH.NO_TOKEN);
+        if (type !== authType) throwException(CODES.AUTH.WRONG_AUTH_TYPE);
+        if (!token) throwException(CODES.AUTH.NO_TOKEN);
 
         const payload = await jwtService
             .verify(token)
-            .catch(error => throwException(API_ERROR_CODES.AUTH.INVALID_TOKEN, {reason: error.message, tokenType: this.getByName(request, 'tokenType')}));
+            .catch(error => throwException(
+                CODES.AUTH.WRONG_CREDENTIALS,
+                {reason: error.message, tokenType: this.getByName(request, 'tokenType')})
+            );
 
-        if (!payload) throwException(API_ERROR_CODES.AUTH.NO_TOKEN_PAYLOAD);
+        if (!payload) throwException(CODES.AUTH.NO_TOKEN_PAYLOAD);
 
         return payload;
     }
 
     static getAll = async (request): Promise<any> => {
-        if (!request) throwException(API_ERROR_CODES.COMMON.EMPTY_PARAM, {
+        if (!request) throwException(CODES.COMMON.EMPTY_PARAM, {
             method: 'getAll',
             params: {request: request}
         });
 
         const authHeader = request.headers.authorization;
-        if (!authHeader) throwException(API_ERROR_CODES.AUTH.NO_AUTH_HEADER);
+        if (!authHeader) throwException(CODES.AUTH.NO_AUTH_HEADER);
 
         const token = authHeader.split(' ')?.[1];
-        if (!token) throwException(API_ERROR_CODES.AUTH.NO_TOKEN);
+        if (!token) throwException(CODES.AUTH.NO_TOKEN);
 
         return new JwtService({}).decode(token);
     }
 
     static getAllFromHeader = async (authHeader: string): Promise<any> => {
-        if (isHasEmpty(authHeader)) throwException(API_ERROR_CODES.AUTH.NO_AUTH_HEADER);
+        if (isHasEmpty(authHeader)) throwException(CODES.AUTH.NO_AUTH_HEADER);
 
         const token = authHeader.split(' ')?.[1];
-        if (!token) throwException(API_ERROR_CODES.AUTH.NO_TOKEN);
+        if (!token) throwException(CODES.AUTH.NO_TOKEN);
 
         return new JwtService({}).decode(token);
     }
