@@ -1,1 +1,1 @@
-export * from './jwtTokenService'
+export * from './jwt-token.service'

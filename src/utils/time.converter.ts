@@ -8,7 +8,7 @@
  * d - day; <br/>
  * w - week (7 days).
  */
-const addTimeToNow = (time: string): number => {
+export const addTimeToNow = (time: string): number => {
     if (!time) return 0;
 
     return Date.now() + timeToMs(time);
@@ -24,7 +24,7 @@ const addTimeToNow = (time: string): number => {
  * d - day; <br/>
  * w - week (7 days).
  */
-const timeToMs = (time: string): number => {
+export const timeToMs = (time: string): number => {
     if (!time || !time.match(/^\d+[a-z]$/i))
         return 0;
 
@@ -51,17 +51,10 @@ const timeToMs = (time: string): number => {
     return milliseconds * value;
 }
 
-const isTimeExpired = (expirationTime) => {
+export const isTimeExpired = (expirationTime) => {
     return expirationTime < Date.now();
 }
 
-const isTimeExpiredWithCodeDiff= (expirationTime, diffPower) => {
+export const isTimeExpiredWithCodeDiff= (expirationTime, diffPower) => {
     return expirationTime < (Date.now() / (10 ** diffPower));
 }
-
-export {
-    timeToMs,
-    addTimeToNow,
-    isTimeExpired,
-    isTimeExpiredWithCodeDiff
-};

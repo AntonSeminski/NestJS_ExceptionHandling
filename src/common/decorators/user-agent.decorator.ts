@@ -4,5 +4,4 @@ export const UserAgentInfo = createParamDecorator((data: string, ctx: ExecutionC
         const request = ctx.switchToHttp().getRequest();
 
         return request.headers?.['user-agent'];
-    }
-);
+    });

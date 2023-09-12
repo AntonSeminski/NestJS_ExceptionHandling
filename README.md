@@ -47,7 +47,7 @@ Exception structure:
 
 # installation
 ```bash
-$ npm install @asemin/nestjs-exception-handling
+$ npm install @asemin/nestjs-utils
 ```
 
 # Handler creation example
