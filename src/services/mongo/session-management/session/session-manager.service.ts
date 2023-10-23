@@ -1,5 +1,4 @@
 import {Injectable} from "@nestjs/common";
-import {EDatabaseConnectionType} from "../../connection-management";
 
 @Injectable()
 export class SessionManager {
@@ -19,5 +18,5 @@ export class SessionManager {
         this.sessions?.delete(connectionName);
     }
 
-    static createUniqConnectionName = (connectionName: EDatabaseConnectionType, request) => connectionName + request?.id;
+    static createUniqConnectionName = (connectionName: string, request) => connectionName + request?.id;
 }
