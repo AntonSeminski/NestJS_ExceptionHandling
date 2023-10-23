@@ -1,7 +1,7 @@
 import {JwtService} from "@nestjs/jwt";
 import {CODES} from '@buildery/error-codes'
-import {JwtTokenService} from "../jwt";
-import {isHasEmpty, throwException} from "../exception-handling";
+import {JwtTokenService} from "../../services/jwt";
+import {isHasEmpty, throwException} from "../../services/exception-handling";
 
 export class AuthInfo {
     static validate = async (request, authType, jwtService: JwtTokenService) => {

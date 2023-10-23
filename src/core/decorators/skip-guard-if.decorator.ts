@@ -1,6 +1,6 @@
 import {SetMetaIf, SkipIfMeta} from "../guards";
 import {applyDecorators, UseGuards} from "@nestjs/common";
-import {RequestBooleanFunction} from "../types";
+import {RequestBooleanFunction} from "../../shared/types";
 
 /**
  * @description Skips guard execution if condition is true.

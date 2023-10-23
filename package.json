@@ -1,6 +1,6 @@
 {
-  "name": "@asemin/nestjs-utils",
-  "version": "4.0.2",
+  "name": "@buildery/nestjs-utils",
+  "version": "1.0.2",
   "description": "",
   "author": "Anton Semin <anton.siaminski@gmail.com>, Vladzimir Karpov",
   "private": false,

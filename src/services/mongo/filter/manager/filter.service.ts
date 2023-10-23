@@ -1,6 +1,5 @@
-import {SearchLogicDto} from "../dto";
+import {FilterDto, SearchLogicDto} from "../dto";
 import {logic_operators} from "../constants";
-import {FilterDto} from "../dto";
 
 export class FilterService {
     static toExpression(search: SearchLogicDto) {
