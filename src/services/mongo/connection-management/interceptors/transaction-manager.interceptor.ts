@@ -3,7 +3,6 @@ import {REQUEST} from '@nestjs/core';
 import {InjectConnection} from '@nestjs/mongoose';
 import * as mongoose from "mongoose";
 import {catchError, Observable, tap} from 'rxjs';
-import {SessionManager} from '../../session-management';
 
 export const TransactionManagerInterceptor: any = (connectionName: string) => {
 
@@ -11,19 +10,16 @@ export const TransactionManagerInterceptor: any = (connectionName: string) => {
         constructor(
             @InjectConnection(connectionName) private mongoConnection: mongoose.Connection,
             @Inject(REQUEST) private request,
-            private sessionManager: SessionManager
         ) {}
 
         async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
             if (!this.mongoConnection) return next.handle();
 
             const mongoConnectionName = this.mongoConnection.name;
-            const uniqConnectionName = SessionManager.createUniqConnectionName(connectionName, this.request);
 
             const session = await this.mongoConnection.startSession();
 
             session.startTransaction({});
-            this.sessionManager.setSession(uniqConnectionName, session);
 
             console.log(`connections: ${mongoose.connections.length}`)
             console.log(`opened connections: ${mongoose.connections.filter(conn => conn.readyState !== 0).length}`)
@@ -32,12 +28,12 @@ export const TransactionManagerInterceptor: any = (connectionName: string) => {
                 tap(async () => {
                     await session.commitTransaction();
 
-                    await this.endSession(session, mongoConnectionName, uniqConnectionName);
+                    await this.endSession(session, mongoConnectionName, 'uniqConnectionName');
                 }),
                 catchError(async (error) => {
                     await session.abortTransaction();
 
-                    await this.endSession(session, mongoConnectionName, uniqConnectionName);
+                    await this.endSession(session, mongoConnectionName, 'uniqConnectionName'); //TODO Uniq if any
 
                     throw error;
                 }));
@@ -45,8 +41,6 @@ export const TransactionManagerInterceptor: any = (connectionName: string) => {
 
         async endSession(session, mongoConnectionName, uniqConnectionName) {
             await session.endSession();
-
-            this.sessionManager.removeSession(uniqConnectionName);
 
             if (connectionName === 'Shared')
                 return;
