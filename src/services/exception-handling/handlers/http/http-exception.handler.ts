@@ -1,8 +1,8 @@
-import {HandledExceptionDto} from "../../dto/handled-exception.dto";
-import {HttpException} from "@nestjs/common";
-import {ExceptionHandler} from "../abstract/exception.handler";
-import {getException} from "../../services/exception.service";
-import {CODES} from "@buildery/error-codes";
+import { HandledExceptionDto } from "../../dto/handled-exception.dto";
+import { HttpException } from "@nestjs/common";
+import { ExceptionHandler } from "../abstract/exception.handler";
+import { getException } from "../../services/exception.service";
+import { CODES } from "@buildery/error-codes";
 
 export class HttpExceptionHandler extends ExceptionHandler {
     handle(exception: any): HandledExceptionDto {

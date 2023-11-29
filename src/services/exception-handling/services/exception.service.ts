@@ -1,7 +1,7 @@
-import {CustomException} from "../exceptions/custom.exception";
-import {CODES, ERROR_BY_CODE} from "@buildery/error-codes";
-import {ErrorDto} from "../dto/error.dto";
-import {getArguments, zip} from "./utils";
+import { CustomException } from "../exceptions/custom.exception";
+import { CODES, ERROR_BY_CODE } from "@buildery/error-codes";
+import { ErrorDto } from "../dto/error.dto";
+import { getArguments, zip } from "./utils";
 
 const getException = (code: string): ErrorDto =>
     JSON.stringify(CODES).includes(code)

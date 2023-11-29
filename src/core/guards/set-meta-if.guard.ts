@@ -1,5 +1,5 @@
-import {CanActivate, ExecutionContext, Injectable, mixin} from "@nestjs/common";
-import {RequestBooleanFunction} from "../../shared/types";
+import { CanActivate, ExecutionContext, Injectable, mixin } from "@nestjs/common";
+import { RequestBooleanFunction } from "../../shared";
 
 /**
  * @description Sets true to metadata if `why` returns true;

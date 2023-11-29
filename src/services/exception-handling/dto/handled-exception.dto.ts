@@ -4,6 +4,7 @@ export class HandledExceptionDto {
     title: string;
     message: string;
     body: any;
+    stack?: any;
 
     constructor(exception: any) {
         this.code = exception?.code;
@@ -11,5 +12,6 @@ export class HandledExceptionDto {
         this.title = exception?.title;
         this.message = exception?.message;
         this.body = exception?.body;
+        this.stack = exception?.stack;
     }
 }

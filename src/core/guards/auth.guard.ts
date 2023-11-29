@@ -1,8 +1,8 @@
-import {CanActivate, ExecutionContext, Inject, Injectable, mixin} from '@nestjs/common';
-import {JwtTokenService} from "../../services/jwt";
-import {throwException} from "../../services/exception-handling";
-import {HttpConstants} from "../../shared/constants";
-import {CODES} from "@buildery/error-codes";
+import { CanActivate, ExecutionContext, Inject, Injectable, mixin } from "@nestjs/common";
+import { JwtTokenService } from "../../services";
+import { throwException } from "../../services";
+import { HttpConstants } from "../../shared";
+import { CODES } from "@buildery/error-codes";
 
 export const AuthGuard: any = (tokenServiceType: JwtTokenService) => {
     @Injectable()

@@ -1,5 +1,5 @@
-import {HttpException} from "@nestjs/common";
-import {getException} from "../services/exception.service";
+import { HttpException } from "@nestjs/common";
+import { getException } from "../services/exception.service";
 
 export class CustomException extends HttpException {
     code: string;

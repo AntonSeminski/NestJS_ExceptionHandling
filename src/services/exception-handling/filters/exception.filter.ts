@@ -1,9 +1,9 @@
-import {ArgumentsHost, Catch} from '@nestjs/common';
-import {HandledExceptionDto} from '../dto/handled-exception.dto';
-import {ExceptionHandler} from "../handlers/abstract/exception.handler";
-import {FastifyReply} from 'fastify'
-import {getException} from "../services/exception.service";
-import {CODES} from "@buildery/error-codes";
+import { ArgumentsHost, Catch } from "@nestjs/common";
+import { HandledExceptionDto } from "../dto/handled-exception.dto";
+import { ExceptionHandler } from "../handlers/abstract/exception.handler";
+import { FastifyReply } from "fastify";
+import { getException } from "../services/exception.service";
+import { CODES } from "@buildery/error-codes";
 
 @Catch()
 export class ExceptionFilter {
@@ -20,6 +20,7 @@ export class ExceptionFilter {
         console.log(`primary exception status: ${JSON.stringify(exception.status)}`)
         console.log(`primary exception message: ${JSON.stringify(exception.message)}`)
         console.log(`primary exception body: ${JSON.stringify(exception.body)}`)
+        console.log(`primary exception stack: ${JSON.stringify(exception.stack)}`)
 
         const handledException: HandledExceptionDto = this.handler?.handle(exception);
 

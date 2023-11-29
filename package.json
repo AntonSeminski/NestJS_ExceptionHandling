@@ -1,6 +1,6 @@
 {
   "name": "@buildery/nestjs-utils",
-  "version": "1.0.2",
+  "version": "1.0.7",
   "description": "",
   "author": "Anton Semin <anton.siaminski@gmail.com>, Vladzimir Karpov",
   "private": false,
@@ -22,9 +22,7 @@
   "dependencies": {
     "@buildery/error-codes": "^1.1.1",
     "@nestjs/common": "^10.2.7",
-    "@nestjs/jwt": "^10.1.1",
-    "@nestjs/mongoose": "^10.0.1",
-    "mongoose": "^7.6.3"
+    "@nestjs/jwt": "^10.1.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.2.0",

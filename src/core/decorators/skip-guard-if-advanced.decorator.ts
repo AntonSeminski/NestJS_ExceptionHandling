@@ -1,6 +1,6 @@
-import {SetMetaIfAdvanced, SkipIfMeta} from "../guards";
-import {applyDecorators, UseGuards} from "@nestjs/common";
-import {IIsSkip} from "../../shared/interfaces/is-skip.interface";
+import { SetMetaIfAdvanced, SkipIfMeta } from "../guards";
+import { applyDecorators, UseGuards } from "@nestjs/common";
+import { IIsSkip } from "../../shared";
 
 /**
  * @description Skips guard execution if condition is true.

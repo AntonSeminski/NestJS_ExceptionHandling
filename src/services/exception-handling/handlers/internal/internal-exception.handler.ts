@@ -1,6 +1,6 @@
-import {ExceptionHandler} from "../abstract/exception.handler";
-import {HandledExceptionDto} from "../../dto/handled-exception.dto";
-import {InternalException} from "../../exceptions/internal.exception";
+import { ExceptionHandler } from "../abstract/exception.handler";
+import { HandledExceptionDto } from "../../dto/handled-exception.dto";
+import { InternalException } from "../../exceptions/internal.exception";
 
 export class InternalExceptionHandler extends ExceptionHandler {
     handle(exception: any): HandledExceptionDto {

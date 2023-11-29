@@ -1,5 +1,5 @@
-import {JwtService} from "@nestjs/jwt";
-import {Inject, Injectable} from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { Inject, Injectable } from "@nestjs/common";
 
 @Injectable()
 export abstract class JwtTokenService {

@@ -1,4 +1,4 @@
-import {CanActivate, ExecutionContext, Inject, Injectable, mixin} from "@nestjs/common";
+import { CanActivate, ExecutionContext, Inject, Injectable, mixin } from "@nestjs/common";
 
 /**
  * @description Sets true to metadata if why.is returns true;

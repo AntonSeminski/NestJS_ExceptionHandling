@@ -1,5 +1,5 @@
-import {HttpException} from "@nestjs/common";
-import {HandledExceptionDto} from "../dto/handled-exception.dto";
+import { HttpException } from "@nestjs/common";
+import { HandledExceptionDto } from "../dto/handled-exception.dto";
 
 export class InternalException extends HttpException {
     code: string;
@@ -22,6 +22,6 @@ export class InternalException extends HttpException {
         this.title = title;
     }
 
-    static isInternalException = (ex) => ex.message && ex.code && ex.title && ex.status && ex.body;
+    static isInternalException = (ex) => ex.message && ex.code && ex.title && ex.status;
 }
 
