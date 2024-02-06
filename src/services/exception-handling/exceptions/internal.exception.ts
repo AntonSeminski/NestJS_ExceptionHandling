@@ -22,6 +22,6 @@ export class InternalException extends HttpException {
         this.title = title;
     }
 
-    static isInternalException = (ex) => ex.message && ex.code && ex.title && ex.status;
+    static isInternalException = (ex: any) => ex && ex.message && ex.code && ex.title && ex.status;
 }
 

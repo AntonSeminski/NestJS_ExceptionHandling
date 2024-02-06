@@ -1,6 +1,6 @@
 import { HandledExceptionDto } from "../../dto/handled-exception.dto";
 import { ExceptionHandler } from "../abstract/exception.handler";
-import { ValidationException } from "./validation.exception";
+import { ValidationException } from "../../exceptions/validation.exception";
 
 class ValidationExceptionHandler extends ExceptionHandler{
     handle(exception: any): HandledExceptionDto {

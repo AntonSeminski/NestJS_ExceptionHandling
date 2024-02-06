@@ -1,5 +1,5 @@
 import { ValidationError } from "@nestjs/common";
-import { CustomException } from "../../exceptions/custom.exception";
+import { CustomException } from "./custom.exception";
 import { CODES } from "@buildery/error-codes";
 
 export class ValidationException extends CustomException {
