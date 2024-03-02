@@ -1,19 +1,27 @@
 import { HttpException } from "@nestjs/common";
-import { getException } from "../services/exception.service";
+import { getDefaultException } from "../services/exception.service";
+import {ErrorDto} from "../dto/error.dto";
 
 export class CustomException extends HttpException {
     code: string;
     body: any;
     title: string;
 
-    constructor(code: string, body: any = {}) {
-        const {status, message, title} = getException(code);
+    constructor(code: string, options?:  { message?: string, title?: string, body?: any }) {
+        const defaultException: ErrorDto = getDefaultException(code);
 
-        super(message, status)
+        const message = (options?.message)
+            ? options.message
+            : defaultException.message;
+        const title = (options?.title)
+            ? options.title
+            : defaultException.title;
+
+        super(message, defaultException.status);
 
         this.title = title;
         this.code = code;
-        this.body = body;
+        this.body = options?.body;
     }
 }
 

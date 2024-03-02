@@ -3,8 +3,8 @@ import { CODES, ERROR_BY_CODE } from "@buildery/error-codes";
 import { ErrorDto } from "../dto/error.dto";
 import { getArguments, zip } from "./utils";
 
-const getException = (code: string): ErrorDto =>
-    JSON.stringify(CODES).includes(code)
+const getDefaultException = (code?: string): ErrorDto =>
+    (code && JSON.stringify(CODES).includes(code))
         ? ERROR_BY_CODE.get(code)
         : ERROR_BY_CODE.get(CODES.COMMON.UNKNOWN)
 
@@ -24,4 +24,4 @@ const throwEmptyParam = (func: Function) => {
     throwException(CODES.COMMON.EMPTY_PARAM, {functionName, valueByField});
 }
 
-export {getException, throwException, throwEmptyParam}
+export {getDefaultException, throwException, throwEmptyParam}

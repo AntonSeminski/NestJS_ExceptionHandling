@@ -1,7 +1,7 @@
 import { HandledExceptionDto } from "../../dto/handled-exception.dto";
 import { HttpException } from "@nestjs/common";
 import { ExceptionHandler } from "../abstract/exception.handler";
-import { getException } from "../../services/exception.service";
+import { getDefaultException } from "../../services/exception.service";
 import { CODES } from "@buildery/error-codes";
 
 export class HttpExceptionHandler extends ExceptionHandler {
@@ -14,7 +14,7 @@ export class HttpExceptionHandler extends ExceptionHandler {
 
         const status = exception.getStatus();
 
-        const error = getException(CODES.HTTP[status]);
+        const error = getDefaultException(CODES.HTTP[status]);
 
         error.message = exception.message ? exception.message : error.message;
 

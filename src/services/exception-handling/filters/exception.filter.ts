@@ -2,7 +2,7 @@ import { ArgumentsHost, Catch } from "@nestjs/common";
 import { HandledExceptionDto } from "../dto/handled-exception.dto";
 import { ExceptionHandler } from "../handlers/abstract/exception.handler";
 import { FastifyReply } from "fastify";
-import { getException } from "../services/exception.service";
+import { getDefaultException } from "../services/exception.service";
 import { CODES } from "@buildery/error-codes";
 
 @Catch()
@@ -24,7 +24,7 @@ export class ExceptionFilter {
 
         const handledException: HandledExceptionDto = this.handler?.handle(exception);
 
-        const internalErrorException: HandledExceptionDto = new HandledExceptionDto(getException(CODES.COMMON.UNKNOWN));
+        const internalErrorException: HandledExceptionDto = new HandledExceptionDto(getDefaultException(CODES.COMMON.UNKNOWN));
         internalErrorException.body = {error: exception.message};
 
         const responseException = handledException ?? internalErrorException;
