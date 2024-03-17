@@ -45,16 +45,12 @@ export const timeToMs = (time: string): number => {
             milliseconds *= 1000 * 60 * 60 * 24;
             break;
         case 'w':
-            milliseconds *= 1000 * 60 * 60 * 24 *7;
+            milliseconds *= 1000 * 60 * 60 * 24 * 7;
     }
 
     return milliseconds * value;
 }
 
-export const isTimeExpired = (expirationTime) => {
-    return expirationTime < Date.now();
-}
+export const isTimeExpired = (expirationTime): boolean => expirationTime < Date.now();
 
-export const isTimeExpiredWithCodeDiff= (expirationTime, diffPower) => {
-    return expirationTime < (Date.now() / (10 ** diffPower));
-}
+export const isTimeExpiredWithCodeDiff = (expirationTime, diffPower): boolean => expirationTime < (Date.now() / (10 ** diffPower));
